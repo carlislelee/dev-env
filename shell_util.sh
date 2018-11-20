@@ -12,7 +12,7 @@ wait_partition(){
     if [ $# -gt 3 ];then
         maxchktime=$4
     fi
-    ret=$(${hive} -e "use $db;show partitions $table"|grep -P "$part"|wc -l)
+    ret=$(${hive} -e "show partitions ${db}.$table"|grep -P "$part"|wc -l)
     while [ $ret -lt 1 ];do
         echo "Waiting for partition $part of ${db}.${table}, check time:$chktime ..."
         sleep 10
@@ -20,7 +20,7 @@ wait_partition(){
         if [ $chktime -gt $maxchktime ];then
             return 1
         fi
-        ret=$(${hive} -e "use $db;show partitions $table"|grep -P "$part"|wc -l)
+        ret=$(${hive} -e "show partitions ${db}.$table"|grep -P "$part"|wc -l)
     done
     echo "Found partition $part of ${db}.${table} ~"
     return 0
