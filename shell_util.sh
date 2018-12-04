@@ -3,6 +3,11 @@
 hadoop="/opt/tiger/yarn_deploy/hadoop/bin/hadoop"
 hive="/opt/tiger/hive_deploy/bin/hive"
 
+echo_err(){
+    message=$1
+    echo -e "\n\033[33;1m[ERROR]["$(date +"%F %T")"] $message \033[0m\n"
+}
+
 wait_partition(){
     db=$1
     table=$2
